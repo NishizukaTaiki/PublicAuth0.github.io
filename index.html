@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Silent Authentication TEST</title>
+</head>
+
+<body>
+    <h2>Silent Authentication TEST</h2>
+    <p>BackendでAuth0と通信し、Auth0側のセッションを延長する</p>
+
+    <!--
+        iframeでsamesitecookiがあることを前提に投げつける
+
+        飛ばし先は以下
+        https://sso.jt-dev.com/authorize?
+        client_id=2e8Bz9ZFwiFPyNOL4T7zTc9USn18PclX&
+        scope=openid&response_type=id_token&
+        prompt=none&
+        redirect_uri=https://slo.clubjt.jp/OC-SESSION-TIMEOUT.html&nonce=nonce1
+
+        反応としては以下
+        認証済み：https://slo.clubjt.jp/OC-SESSION-TIMEOUT.html#id_token=eyJhbGciOi...
+        未認証の場合：https://slo.clubjt.jp/OC-SESSION-TIMEOUT.html#error=login_required&error_description=Login%20required
+
+    -->
+
+    <script>
+        const auth0frame = window.document.createElement('iframe');
+        auth0frame.setAttribute('width', '0');
+        auth0frame.setAttribute('height','0');
+        auth0frame.style.display = 'none';
+        window.document.body.appendChild(auth0frame);
+        auth0frame.setAttribute('src', 'https://sso.jt-dev.com/authorize?client_id=2e8Bz9ZFwiFPyNOL4T7zTc9USn18PclX&scope=openid&response_type=id_token&prompt=none&redirect_uri=https://slo.clubjt.jp/OC-SESSION-TIMEOUT.html&nonce=nonce1');
+    </script>
+</body>
+
+</html>
